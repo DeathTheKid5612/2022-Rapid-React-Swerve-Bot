@@ -14,7 +14,9 @@ package frc.robot;
  */
 public final class Constants {
     public static final double CONVEYOR_SPEED = .3;
-    public static final double FLYWHEEL_SPEED = .50;
+    public static final double FLYWHEEL_SPEED = 8200; //.5
+
+    public static final Gains kShooterVelocityGains = new Gains(1.7, 0.001, 16, 1023/10235, 300, 1);
     /**
      * The left-to-right distance between the drivetrain wheels
      *
