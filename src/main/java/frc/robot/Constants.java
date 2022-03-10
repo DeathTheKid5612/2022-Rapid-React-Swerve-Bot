@@ -18,6 +18,9 @@ public final class Constants {
     public static final double DUMB_FLYWHEEL_SPEED = .5; 
 
     public static final Gains kShooterVelocityGains = new Gains(1.7, 0.001, 16, 1023/10235, 300, 1);
+
+    public static final boolean IS_INVERTED = true;
+    public static final boolean IS_NOT_INVERTED = false;
     /**
      * The left-to-right distance between the drivetrain wheels
      *

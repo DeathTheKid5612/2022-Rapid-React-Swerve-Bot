@@ -12,14 +12,19 @@ import frc.robot.Constants;
 public class FlywheelCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_subsystem;
+  private final int inverter;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public FlywheelCommand(ShooterSubsystem subsystem) {
+  public FlywheelCommand(boolean _isInverted, ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
+    if (_isInverted)
+      inverter = -1;
+    else
+      inverter = 1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,7 +36,7 @@ public class FlywheelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.flywheelPower(Constants.FLYWHEEL_SPEED);
+    m_subsystem.flywheelPower(Constants.FLYWHEEL_SPEED * inverter);
   }
 
   // Called once the command ends or is interrupted.
