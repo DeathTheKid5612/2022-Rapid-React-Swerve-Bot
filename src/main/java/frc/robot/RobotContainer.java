@@ -6,12 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.OneBallAuton;
 import frc.robot.commands.ConveyorDownCommand;
 import frc.robot.commands.ConveyorUpCommand;
 import frc.robot.commands.DefaultDriveCommand;
@@ -34,6 +37,10 @@ public class RobotContainer {
 
   private final XboxController m_controller = new XboxController(0);
 
+  private final Command m_auton = new OneBallAuton(m_shooterSubsystem, m_conveyorSubsystem, m_drivetrainSubsystem);
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -52,6 +59,11 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    m_chooser.setDefaultOption("Do Nothing", m_auton);
+    m_chooser.addOption("Single Ball", m_auton);
+
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -79,7 +91,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    return m_chooser.getSelected();
   }
 
   private static double deadband(double value, double deadband) {
