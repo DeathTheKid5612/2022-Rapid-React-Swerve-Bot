@@ -13,6 +13,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final double CONVEYOR_SPEED = .3;
+    public static final double FLYWHEEL_SPEED = .50;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -28,25 +30,30 @@ public final class Constants {
      */
     public static final double DRIVETRAIN_WHEELBASE_METERS = 1.0; // FIXME Measure and set wheelbase
 
-    public static final int DRIVETRAIN_PIGEON_ID = 60; // FIXME Set Pigeon ID
+    public static final int DRIVETRAIN_PIGEON_ID = 35; // FIXME Set Pigeon ID
 
     public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 46; // FIXME Set front left module drive motor ID
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 42; // FIXME Set front left module steer motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 52; // FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(58.6120); // FIXME Measure and set front left steer offset
+    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 32; // FIXME Set front left steer encoder ID
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(58.1726); // FIXME Measure and set front left steer offset
 
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 45; // FIXME Set front right drive motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 41; // FIXME Set front right steer motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 50; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(342.498); // FIXME Measure and set front right steer offset
+    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 30; // FIXME Set front right steer encoder ID
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(341.9769); // FIXME Measure and set front right steer offset
 
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 40; // FIXME Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 44; // FIXME Set back left steer motor ID
-    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 53; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(200.2120); // FIXME Measure and set back left steer offset
+    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 33; // FIXME Set back left steer encoder ID
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(202.0523); // FIXME Measure and set back left steer offset
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 47; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 43; // FIXME Set back right steer motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 51; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(30.665); // FIXME Measure and set back right steer offset
+    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 31; // FIXME Set back right steer encoder ID
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(29.70428); // FIXME Measure and set back right steer offset
+   
+    public static final int SHOOTER_CONVEYOR_FRONT = 48;
+    public static final int SHOOTER_CONVEYOR_REAR = 49;
+    public static final int SHOOTER_FLYWHEEL = 50;
+
 }

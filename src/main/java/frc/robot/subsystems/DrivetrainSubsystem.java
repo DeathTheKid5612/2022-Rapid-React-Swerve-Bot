@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -66,7 +67,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // The important thing about how you configure your gyroscope is that rotating the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
         // FIXME Remove if you are using a Pigeon
-        private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
+        //private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
+        private final WPI_Pigeon2 m_pigeon = new WPI_Pigeon2(DRIVETRAIN_PIGEON_ID);
         // FIXME Uncomment if you are using a NavX
         //  private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
 
@@ -158,7 +160,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
          */
         public void zeroGyroscope() {
         // FIXME Remove if you are using a Pigeon
-        m_pigeon.setFusedHeading(0.0);
+        m_pigeon.setYaw(0.0);
 
         // FIXME Uncomment if you are using a NavX
         //    m_navx.zeroYaw();
@@ -166,7 +168,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         public Rotation2d getGyroscopeRotation() {
         // FIXME Remove if you are using a Pigeon
-        return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
+        return Rotation2d.fromDegrees(m_pigeon.getYaw());
 
         // FIXME Uncomment if you are using a NavX
         //    if (m_navx.isMagnetometerCalibrated()) {

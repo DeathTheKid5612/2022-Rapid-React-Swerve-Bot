@@ -11,8 +11,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.commands.ConveyorDownCommand;
+import frc.robot.commands.ConveyorUpCommand;
 import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.FlywheelCommand;
+import frc.robot.commands.FlywheelReverseCommand;
+import frc.robot.subsystems.*;
+import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,6 +28,8 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
 
@@ -37,9 +44,9 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
-            () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5,
+            () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5,
+            () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5
     ));
 
     // Configure the button bindings
@@ -57,6 +64,11 @@ public class RobotContainer {
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    new Button(m_controller::getRightBumper).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller::getBButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
+    new Button(m_controller::getAButton).whenHeld(new FlywheelCommand(m_shooterSubsystem));
+    new Button(m_controller::getLeftBumper).whenHeld(new FlywheelReverseCommand(m_shooterSubsystem));
+
   }
 
   /**
