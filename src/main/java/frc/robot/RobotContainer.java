@@ -21,7 +21,6 @@ import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.FlywheelReverseCommand;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,11 +32,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final DumbShooterSubsystem m_dumbShooterSubsystem = new DumbShooterSubsystem();
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
 
-  private final Command m_auton = new OneBallAuton(m_shooterSubsystem, m_conveyorSubsystem, m_drivetrainSubsystem);
+  private final Command m_auton = new OneBallAuton(m_dumbShooterSubsystem, m_conveyorSubsystem, m_drivetrainSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -80,7 +80,9 @@ public class RobotContainer {
     new Button(m_controller::getRightBumper).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
     new Button(m_controller::getBButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
     new Button(m_controller::getAButton).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
-    new Button(m_controller::getLeftBumper).whenHeld(new FlywheelCommand(Constants.IS_INVERTED, m_shooterSubsystem));
+    //new Button(m_controller::getLeftBumper).whenHeld(new FlywheelCommand(Constants.IS_INVERTED, m_shooterSubsystem));
+    new Button(m_controller::getLeftBumper).whenHeld(new FlywheelReverseCommand(m_dumbShooterSubsystem));
+
 
   }
 

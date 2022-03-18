@@ -15,13 +15,13 @@ import frc.robot.Constants;
 public class AutonDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DrivetrainSubsystem m_driveTrainSubsystem;
-  int xVelocity, yVelocity, rotVelocity, time;
+  double xVelocity, yVelocity, rotVelocity, time;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutonDrive(int _xVelocity, int _yVelocity, int _rotVelocity, int _time, DrivetrainSubsystem driveTrainSubsystem) {
+  public AutonDrive(double _xVelocity, double _yVelocity, double _rotVelocity, int _time, DrivetrainSubsystem driveTrainSubsystem) {
     m_driveTrainSubsystem = driveTrainSubsystem;
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -34,30 +34,42 @@ public class AutonDrive extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+  public void initialize() {
     long startTime = System.currentTimeMillis();
-    m_driveTrainSubsystem.drive(new ChassisSpeeds(xVelocity, yVelocity, rotVelocity));
+    
+    m_driveTrainSubsystem.driveTest(new ChassisSpeeds(xVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+                                                  yVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+                                                  rotVelocity * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5));
+                                                  
     while(System.currentTimeMillis() < (startTime + time))
     {
       //Just wait
+      /*
+      m_driveTrainSubsystem.drive(new ChassisSpeeds(
+        xVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+        yVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+        rotVelocity * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5));
+        */
     }
-    m_driveTrainSubsystem.drive(new ChassisSpeeds(0,0,0));
+    m_driveTrainSubsystem.driveTest(new ChassisSpeeds(0,0,0));
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {    
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("I ended");
     m_driveTrainSubsystem.drive(new ChassisSpeeds(0,0,0));
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
