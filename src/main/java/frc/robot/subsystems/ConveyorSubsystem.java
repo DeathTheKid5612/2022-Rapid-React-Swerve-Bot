@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
-  private WPI_TalonFX m_conveyor_front = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_FRONT);
-  private WPI_TalonFX m_conveyor_rear = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_REAR);
+  private WPI_TalonFX m_conveyor_bottom = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_BOTTOM);
+  private WPI_TalonFX m_conveyor_top = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_TOP);
 
 
   /** Creates a new ExampleSubsystem. */
   public ConveyorSubsystem() {
-    m_conveyor_rear.setInverted(true);
+    m_conveyor_top.setInverted(true);
     }
 
   @Override
@@ -32,13 +32,23 @@ public class ConveyorSubsystem extends SubsystemBase {
 
   public void conveyorPower(double power)
   {
-    m_conveyor_front.set(TalonFXControlMode.PercentOutput, power);
-    m_conveyor_rear.set(TalonFXControlMode.PercentOutput, power);
+    m_conveyor_bottom.set(TalonFXControlMode.PercentOutput, power);
+    m_conveyor_top.set(TalonFXControlMode.PercentOutput, power/2);
+  }
+
+  public void bottomConveyorPower(double power)
+  {
+    m_conveyor_bottom.set(TalonFXControlMode.PercentOutput, power);
+  }
+
+  public void topConveyorPower(double power)
+  {
+    m_conveyor_top.set(TalonFXControlMode.PercentOutput, power);
   }
 
   public void conveyorOff()
   {
-    m_conveyor_front.set(TalonFXControlMode.PercentOutput, 0);
-    m_conveyor_rear.set(TalonFXControlMode.PercentOutput, 0);
+    m_conveyor_bottom.set(TalonFXControlMode.PercentOutput, 0);
+    m_conveyor_top.set(TalonFXControlMode.PercentOutput, 0);
   }
 }

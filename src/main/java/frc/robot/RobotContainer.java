@@ -8,18 +8,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.OneBallAuton;
-import frc.robot.commands.ConveyorDownCommand;
-import frc.robot.commands.ConveyorUpCommand;
-import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.FlywheelCommand;
-import frc.robot.commands.FlywheelReverseCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -45,6 +41,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    CameraServer.startAutomaticCapture();
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
@@ -77,7 +74,8 @@ public class RobotContainer {
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
-    new Button(m_controller::getRightBumper).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller::getRightBumper).whenHeld(new BottomConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller::getYButton).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
     new Button(m_controller::getBButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
     new Button(m_controller::getAButton).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
     //new Button(m_controller::getLeftBumper).whenHeld(new FlywheelCommand(Constants.IS_INVERTED, m_shooterSubsystem));

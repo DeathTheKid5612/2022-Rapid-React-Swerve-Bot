@@ -13,11 +13,12 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double CONVEYOR_SPEED = -.55;
-    public static final double FLYWHEEL_SPEED = 8200; //.5
+    public static final double CONVEYOR_SPEED = -1;
+    public static final double BOTTOM_CONVEYOR_SPEED = -1;
+    public static final double FLYWHEEL_SPEED = 9000; //.5
     public static final double DUMB_FLYWHEEL_SPEED = .5; 
 
-    public static final Gains kShooterVelocityGains = new Gains(1.7, 0.001, 16, 1023/10235, 300, 1);
+    public static final Gains kShooterVelocityGains = new Gains(2, 0, 0, 1023/10235, 300, 1);
 
     public static final boolean IS_INVERTED = true;
     public static final boolean IS_NOT_INVERTED = false;
@@ -58,8 +59,8 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 31; // FIXME Set back right steer encoder ID
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(29.70428); // FIXME Measure and set back right steer offset
    
-    public static final int SHOOTER_CONVEYOR_FRONT = 48;
-    public static final int SHOOTER_CONVEYOR_REAR = 49;
+    public static final int SHOOTER_CONVEYOR_BOTTOM = 48;
+    public static final int SHOOTER_CONVEYOR_TOP = 49;
     public static final int SHOOTER_FLYWHEEL = 50;
 
 }
