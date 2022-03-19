@@ -16,13 +16,13 @@ import frc.robot.Constants;
 public class AutonDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DrivetrainSubsystem m_driveTrainSubsystem;
-  int xVelocity, yVelocity, rotVelocity, time;
+  double xVelocity, yVelocity, rotVelocity, time;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutonDrive(int _xVelocity, int _yVelocity, int _rotVelocity, int _time, DrivetrainSubsystem driveTrainSubsystem) {
+  public AutonDrive(double _xVelocity, double _yVelocity, double _rotVelocity, int _time, DrivetrainSubsystem driveTrainSubsystem) {
     m_driveTrainSubsystem = driveTrainSubsystem;
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -42,10 +42,18 @@ public class AutonDrive extends CommandBase {
   public void execute() {
     SmartDashboard.putNumber("Position", m_driveTrainSubsystem.getPosition());
     long startTime = System.currentTimeMillis();
-    m_driveTrainSubsystem.autonDrive(new ChassisSpeeds(xVelocity, yVelocity, rotVelocity));
+    /*
+    m_driveTrainSubsystem.drive(new ChassisSpeeds(xVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+                                                  yVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+                                                  rotVelocity * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5));
+                                                  */
     while(System.currentTimeMillis() < (startTime + time))
     {
       //Just wait
+      m_driveTrainSubsystem.drive(new ChassisSpeeds(
+        xVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+        yVelocity * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5, 
+        rotVelocity * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5));
     }
     m_driveTrainSubsystem.autonDrive(new ChassisSpeeds(0,0,0));
     
