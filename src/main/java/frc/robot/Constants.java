@@ -20,6 +20,9 @@ public final class Constants {
 
     public static final Gains kShooterVelocityGains = new Gains(2, 0, 0, 1023/10235, 300, 1);
 
+    public static final double CONVEYOR_TOF_DISTANCE = 100;
+    public static final double CONVEYOR_TOF_TIME = 100;
+
     public static final boolean IS_INVERTED = true;
     public static final boolean IS_NOT_INVERTED = false;
     /**
@@ -62,5 +65,7 @@ public final class Constants {
     public static final int SHOOTER_CONVEYOR_BOTTOM = 48;
     public static final int SHOOTER_CONVEYOR_TOP = 49;
     public static final int SHOOTER_FLYWHEEL = 50;
+
+    public static final int TOF_SENSOR = 10;
 
 }

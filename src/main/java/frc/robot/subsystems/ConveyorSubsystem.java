@@ -7,16 +7,23 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
   private WPI_TalonFX m_conveyor_bottom = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_BOTTOM);
   private WPI_TalonFX m_conveyor_top = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_TOP);
+  private TimeOfFlight m_tofSensor = new TimeOfFlight(Constants.TOF_SENSOR);
 
 
   /** Creates a new ExampleSubsystem. */
   public ConveyorSubsystem() {
+    m_tofSensor.setRangingMode(RangingMode.Short, 24);
+    SmartDashboard.putNumber("TOF Value:", m_tofSensor.getRange());
     m_conveyor_top.setInverted(true);
     }
 
@@ -50,5 +57,10 @@ public class ConveyorSubsystem extends SubsystemBase {
   {
     m_conveyor_bottom.set(TalonFXControlMode.PercentOutput, 0);
     m_conveyor_top.set(TalonFXControlMode.PercentOutput, 0);
+  }
+
+  public double getTOFDistance()
+  {
+    return m_tofSensor.getRange();
   }
 }

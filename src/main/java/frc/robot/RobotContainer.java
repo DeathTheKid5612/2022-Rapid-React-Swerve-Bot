@@ -78,7 +78,7 @@ public class RobotContainer {
     new Button(m_controller::getYButton).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
     new Button(m_controller::getBButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
     new Button(m_controller::getAButton).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
-    //new Button(m_controller::getLeftBumper).whenHeld(new FlywheelCommand(Constants.IS_INVERTED, m_shooterSubsystem));
+    new Button(m_controller::getXButton).whenHeld(new TOFBottomConveyorUpCommand(m_conveyorSubsystem));
     new Button(m_controller::getLeftBumper).whenHeld(new FlywheelReverseCommand(m_dumbShooterSubsystem));
 
 
