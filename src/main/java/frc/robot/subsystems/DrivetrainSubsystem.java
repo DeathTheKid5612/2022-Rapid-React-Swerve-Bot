@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
 public class DrivetrainSubsystem extends SubsystemBase {
+        private double velocity;
+        private double position;
   /**
    * The maximum voltage that will be delivered to the drive motors.
    * <p>
@@ -40,6 +42,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
          * <p>
          * This is a measure of how fast the robot should be able to drive in a straight line.
          */
+        public double getVelocity(){
+                return this.velocity;
+        }
+
+        public double getPosition(){
+                return this.position;
+        }
+
+        public void resetPosition(){
+                this.position = 0;
+        }
+
         public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
                 SdsModuleConfigurations.MK4_L3.getDriveReduction() *
                 SdsModuleConfigurations.MK4_L3.getWheelDiameter() * Math.PI;
@@ -193,5 +207,23 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
         m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
         m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
+        this.velocity = (m_frontLeftModule.getDriveVelocity() + m_frontRightModule.getDriveVelocity() + m_backLeftModule.getDriveVelocity() + m_backRightModule.getDriveVelocity())/4.0;
+        this.position += this.velocity ;
+        }
+
+        public void autonDrive(ChassisSpeeds chassisSpeeds){
+        SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(chassisSpeeds);
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+        
+        m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
+        m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
+        m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
+        m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians()); 
+        this.velocity = (m_frontLeftModule.getDriveVelocity() + m_frontRightModule.getDriveVelocity() + m_backLeftModule.getDriveVelocity() + m_backRightModule.getDriveVelocity())/4.0;
+        this.position += this.velocity * (1/50);
+}
+
+        public void runToPosition(ChassisSpeeds chassisSpeeds, int pos){
+                
         }
 }

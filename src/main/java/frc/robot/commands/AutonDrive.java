@@ -8,6 +8,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
@@ -39,20 +40,22 @@ public class AutonDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Position", m_driveTrainSubsystem.getPosition());
     long startTime = System.currentTimeMillis();
-    m_driveTrainSubsystem.drive(new ChassisSpeeds(xVelocity, yVelocity, rotVelocity));
+    m_driveTrainSubsystem.autonDrive(new ChassisSpeeds(xVelocity, yVelocity, rotVelocity));
     while(System.currentTimeMillis() < (startTime + time))
     {
       //Just wait
     }
-    m_driveTrainSubsystem.drive(new ChassisSpeeds(0,0,0));
+    m_driveTrainSubsystem.autonDrive(new ChassisSpeeds(0,0,0));
     
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrainSubsystem.drive(new ChassisSpeeds(0,0,0));
+    m_driveTrainSubsystem.autonDrive(new ChassisSpeeds(0,0,0));
   }
 
   // Returns true when the command should end.
