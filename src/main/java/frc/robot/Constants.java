@@ -22,6 +22,7 @@ public final class Constants {
 
     public static final double CONVEYOR_TOF_DISTANCE = 100;
     public static final double CONVEYOR_TOF_TIME = 100;
+    //public static int BALLS;
 
     public static final boolean IS_INVERTED = true;
     public static final boolean IS_NOT_INVERTED = false;
@@ -65,6 +66,9 @@ public final class Constants {
     public static final int SHOOTER_CONVEYOR_BOTTOM = 48;
     public static final int SHOOTER_CONVEYOR_TOP = 49;
     public static final int SHOOTER_FLYWHEEL = 50;
+
+    public static final int CLIMBER_1 = 51;
+    public static final int CLIMBER_2 = 52;
 
     public static final int TOF_SENSOR = 10;
 
