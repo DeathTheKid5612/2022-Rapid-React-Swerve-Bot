@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ConveyorSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
@@ -20,8 +21,10 @@ public class TOFBottomConveyorUpCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public TOFBottomConveyorUpCommand(ConveyorSubsystem subsystem) {
+    
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
+
     addRequirements(subsystem);
   }
 
@@ -34,8 +37,9 @@ public class TOFBottomConveyorUpCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("TOF Value:", m_subsystem.getTOFDistance());
     m_subsystem.bottomConveyorPower(Constants.CONVEYOR_SPEED);
-    if (m_subsystem.getTOFDistance() < 1000)
+    if (m_subsystem.getTOFDistance() < Constants.CONVEYOR_TOF_DISTANCE)
     {
       initTime = System.currentTimeMillis();
     }

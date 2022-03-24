@@ -13,15 +13,15 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double CONVEYOR_SPEED = -1;
+    public static final double CONVEYOR_SPEED = 1;
     public static final double BOTTOM_CONVEYOR_SPEED = -1;
     public static final double FLYWHEEL_SPEED = 9000; //.5
     public static final double DUMB_FLYWHEEL_SPEED = .5; 
 
     public static final Gains kShooterVelocityGains = new Gains(2, 0, 0, 1023/10235, 300, 1);
 
-    public static final double CONVEYOR_TOF_DISTANCE = 100;
-    public static final double CONVEYOR_TOF_TIME = 100;
+    public static final double CONVEYOR_TOF_DISTANCE = 125;
+    public static final double CONVEYOR_TOF_TIME = 5;
 
     public static final boolean IS_INVERTED = true;
     public static final boolean IS_NOT_INVERTED = false;

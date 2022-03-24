@@ -23,7 +23,7 @@ public class ConveyorSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ConveyorSubsystem() {
     m_tofSensor.setRangingMode(RangingMode.Short, 24);
-    SmartDashboard.putNumber("TOF Value:", m_tofSensor.getRange());
+    //SmartDashboard.putNumber("TOF Value Test:", m_tofSensor.getRange());
     m_conveyor_top.setInverted(true);
     }
 
