@@ -66,6 +66,9 @@ public final class Constants {
     public static final int SHOOTER_CONVEYOR_TOP = 49;
     public static final int SHOOTER_FLYWHEEL = 50;
 
+    public static final int CLIMBER_1 = 51;
+    public static final int CLIMBER_2 = 52;
+
     public static final int TOF_SENSOR = 10;
 
 }

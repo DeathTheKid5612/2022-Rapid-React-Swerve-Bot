@@ -30,6 +30,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final DumbShooterSubsystem m_dumbShooterSubsystem = new DumbShooterSubsystem();
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
 
@@ -80,6 +81,9 @@ public class RobotContainer {
     new Button(m_controller::getAButton).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
     new Button(m_controller::getXButton).whenHeld(new TOFBottomConveyorUpCommand(m_conveyorSubsystem));
     new Button(m_controller::getLeftBumper).whenHeld(new FlywheelReverseCommand(m_dumbShooterSubsystem));
+
+    //new Button().whenHeld(new ClimberCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
+    //new Trigger(m_controller::getRawButton(10)).whileActiveContinuous(new ClimberCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
 
 
   }
