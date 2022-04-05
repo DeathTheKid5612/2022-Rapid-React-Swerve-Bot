@@ -37,7 +37,7 @@ public class AutonShoot extends CommandBase {
   public void execute() {
     long startTime = System.currentTimeMillis();
     m_shooterSubsystem.flywheelPower(-shooterVelocity);
-    while(System.currentTimeMillis() < (startTime + 2000))
+    while(System.currentTimeMillis() < (startTime + 4500))
     {
       //just wait
     }

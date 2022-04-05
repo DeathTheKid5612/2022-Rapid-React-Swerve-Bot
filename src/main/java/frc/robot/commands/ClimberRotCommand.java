@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
-public class ClimberCommand extends CommandBase {
+public class ClimberRotCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimberSubsystem m_subsystem;
   private final int inverter;
@@ -19,7 +19,7 @@ public class ClimberCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ClimberCommand(boolean _isInverted, ClimberSubsystem subsystem) {
+  public ClimberRotCommand(boolean _isInverted, ClimberSubsystem subsystem) {
     m_subsystem = subsystem;
     if (_isInverted)
       inverter = -1;
@@ -36,13 +36,13 @@ public class ClimberCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.climberLiftPower(Constants.CLIMBER_LIFT_POWER * inverter);
+    m_subsystem.climberRotPower(Constants.CLIMBER_ROT_POWER * inverter);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.climberLiftOff();
+    m_subsystem.climberRotOff();
   }
 
   // Returns true when the command should end.

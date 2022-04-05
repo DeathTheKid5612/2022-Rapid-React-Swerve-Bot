@@ -40,7 +40,7 @@ public class ConveyorSubsystem extends SubsystemBase {
   public void conveyorPower(double power)
   {
     m_conveyor_bottom.set(TalonFXControlMode.PercentOutput, power);
-    m_conveyor_top.set(TalonFXControlMode.PercentOutput, power/2);
+    m_conveyor_top.set(TalonFXControlMode.PercentOutput, power);
   }
 
   public void bottomConveyorPower(double power)

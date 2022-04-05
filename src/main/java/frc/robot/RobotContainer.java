@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -33,6 +34,7 @@ public class RobotContainer {
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
+  private final XboxController m_controller2 = new XboxController(1);
 
   private final Command m_auton = new OneBallAuton(m_dumbShooterSubsystem, m_conveyorSubsystem, m_drivetrainSubsystem);
 
@@ -50,13 +52,14 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
-            () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5,
-            () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * .5,
-            () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * .5
+            () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.drivetrain_multiplier,
+            () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.drivetrain_multiplier,
+            () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * Constants.drivetrain_multiplier
     ));
 
     // Configure the button bindings
-    configureButtonBindings();
+    //configureButtonBindingsOneDriver();
+    configureButtonBindingsTwoDriver();
 
     m_chooser.setDefaultOption("Do Nothing", m_auton);
     m_chooser.addOption("Single Ball", m_auton);
@@ -70,7 +73,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindingsOneDriver() {
     // Back button zeros the gyroscope
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
@@ -85,7 +88,31 @@ public class RobotContainer {
     //new Button().whenHeld(new ClimberCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
     //new Trigger(m_controller::getRawButton(10)).whileActiveContinuous(new ClimberCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
 
+  }
 
+  private void configureButtonBindingsTwoDriver()
+  {
+    //driver controls
+    // Back button zeros the gyroscope
+    new Button(m_controller::getBackButton)
+            // No requirements because we don't need to interrupt anything
+            .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    new Button(m_controller::getRightBumper).whenHeld(new TOFBottomConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller::getYButton).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller::getAButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
+    new Button(m_controller::getLeftBumper).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
+    new POVButton(m_controller, 0).toggleWhenPressed(new DriveTrainPowerCommand());
+    //new Button(m_controller::getLeftBumper).whenHeld(new FlywheelReverseCommand(m_dumbShooterSubsystem));
+    //Operator Controls
+    //new Button(m_controller2::getAButton).whenHeld(new FlywheelCommand(Constants.IS_NOT_INVERTED, m_shooterSubsystem));
+    //new Button(m_controller2::getXButton).whenHeld(new BottomConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller2::getYButton).whenHeld(new ConveyorUpCommand(m_conveyorSubsystem));
+    new Button(m_controller2::getAButton).whenHeld(new ConveyorDownCommand(m_conveyorSubsystem));
+    new Button(m_controller2::getRightBumper).whenHeld(new ClimberCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
+    new Button(m_controller2::getLeftBumper).whenHeld(new ClimberCommand(Constants.IS_INVERTED, m_climberSubsystem));
+    new Button(m_controller2::getXButton).whenHeld(new ClimberRotCommand(Constants.IS_NOT_INVERTED, m_climberSubsystem));
+    new Button(m_controller2::getBButton).whenHeld(new ClimberRotCommand(Constants.IS_INVERTED, m_climberSubsystem));
+  
   }
 
   /**

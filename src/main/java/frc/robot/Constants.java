@@ -13,18 +13,24 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final double CLIMBER_LIFT_POWER = 1;
+    public static final double CLIMBER_ROT_POWER = 1;
+
     public static final double CONVEYOR_SPEED = 1;
     public static final double BOTTOM_CONVEYOR_SPEED = -1;
+
     public static final double FLYWHEEL_SPEED = 9000; //.5
-    public static final double DUMB_FLYWHEEL_SPEED = .5; 
+    public static final double DUMB_FLYWHEEL_SPEED = .7; 
 
     public static final Gains kShooterVelocityGains = new Gains(2, 0, 0, 1023/10235, 300, 1);
 
     public static final double CONVEYOR_TOF_DISTANCE = 125;
-    public static final double CONVEYOR_TOF_TIME = 5;
+    public static final double CONVEYOR_TOF_TIME = 2;
 
     public static final boolean IS_INVERTED = true;
     public static final boolean IS_NOT_INVERTED = false;
+
+    public static double drivetrain_multiplier = .5;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -66,8 +72,8 @@ public final class Constants {
     public static final int SHOOTER_CONVEYOR_TOP = 49;
     public static final int SHOOTER_FLYWHEEL = 50;
 
-    public static final int CLIMBER_1 = 51;
-    public static final int CLIMBER_2 = 52;
+    public static final int CLIMBER_LIFT = 52;
+    public static final int CLIMBER_ROT = 51;
 
     public static final int TOF_SENSOR = 10;
 
