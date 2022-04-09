@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private WPI_TalonFX m_flywheel = new WPI_TalonFX(Constants.SHOOTER_FLYWHEEL);
+  private WPI_TalonFX m_flywheel = new WPI_TalonFX(Constants.SHOOTER_FLYWHEEL, "AuxCAN");
 
 
   /** Creates a new ExampleSubsystem. */

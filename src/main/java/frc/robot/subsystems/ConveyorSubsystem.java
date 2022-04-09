@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
-  private WPI_TalonFX m_conveyor_bottom = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_BOTTOM);
-  private WPI_TalonFX m_conveyor_top = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_TOP);
+  private WPI_TalonFX m_conveyor_bottom = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_BOTTOM, "AuxCAN");
+  private WPI_TalonFX m_conveyor_top = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_TOP, "AuxCAN");
   private TimeOfFlight m_tofSensor = new TimeOfFlight(Constants.TOF_SENSOR);
 
 

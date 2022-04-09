@@ -38,7 +38,7 @@ public class TOFBottomConveyorUpCommand extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("TOF Value:", m_subsystem.getTOFDistance());
-    m_subsystem.bottomConveyorPower(Constants.CONVEYOR_SPEED);
+    m_subsystem.bottomConveyorPower(Constants.BOTTOM_CONVEYOR_SPEED);
     if (m_subsystem.getTOFDistance() < Constants.CONVEYOR_TOF_DISTANCE)
     {
       initTime = System.currentTimeMillis();
