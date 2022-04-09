@@ -16,7 +16,7 @@ public final class Constants {
     public static final double CLIMBER_LIFT_POWER = 1;
     public static final double CLIMBER_ROT_POWER = 1;
 
-    public static final double CONVEYOR_SPEED = .25;
+    public static final double TOP_CONVEYOR_SPEED = .25;
     public static final double BOTTOM_CONVEYOR_SPEED = 1;
 
     public static final double FLYWHEEL_SPEED = 10000; //.5 was 9000
@@ -75,6 +75,7 @@ public final class Constants {
     public static final int CLIMBER_LIFT = 52;
     public static final int CLIMBER_ROT = 51;
 
-    public static final int TOF_SENSOR = 10;
+    public static final int TOF_BOTTOM_SENSOR = 10;
+    public static final int TOF_TOP_SENSOR = 11;
 
 }

@@ -17,12 +17,14 @@ import frc.robot.Constants;
 public class ConveyorSubsystem extends SubsystemBase {
   private WPI_TalonFX m_conveyor_bottom = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_BOTTOM, "AuxCAN");
   private WPI_TalonFX m_conveyor_top = new WPI_TalonFX(Constants.SHOOTER_CONVEYOR_TOP, "AuxCAN");
-  private TimeOfFlight m_tofSensor = new TimeOfFlight(Constants.TOF_SENSOR);
+  private TimeOfFlight bottomTOF = new TimeOfFlight(Constants.TOF_BOTTOM_SENSOR);
+  private TimeOfFlight topTOF = new TimeOfFlight(Constants.TOF_TOP_SENSOR);
 
 
   /** Creates a new ExampleSubsystem. */
   public ConveyorSubsystem() {
-    m_tofSensor.setRangingMode(RangingMode.Short, 24);
+    bottomTOF.setRangingMode(RangingMode.Short, 24);
+    topTOF.setRangingMode(RangingMode.Short, 24);
     //SmartDashboard.putNumber("TOF Value Test:", m_tofSensor.getRange());
     m_conveyor_top.setInverted(true);
     }
@@ -30,6 +32,8 @@ public class ConveyorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Bottom TOF Value:", getBottomTOFDistance());
+    SmartDashboard.putNumber("Top TOF Value:", getTopTOFDistance());
   }
 
   @Override
@@ -59,8 +63,13 @@ public class ConveyorSubsystem extends SubsystemBase {
     m_conveyor_top.set(TalonFXControlMode.PercentOutput, 0);
   }
 
-  public double getTOFDistance()
+  public double getTopTOFDistance()
   {
-    return m_tofSensor.getRange();
+    return topTOF.getRange();
+  }
+
+  public double getBottomTOFDistance()
+  {
+    return bottomTOF.getRange();
   }
 }

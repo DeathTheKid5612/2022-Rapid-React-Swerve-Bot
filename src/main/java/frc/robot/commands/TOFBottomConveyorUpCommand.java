@@ -37,15 +37,15 @@ public class TOFBottomConveyorUpCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("TOF Value:", m_subsystem.getTOFDistance());
+    SmartDashboard.putNumber("TOF Value:", m_subsystem.getBottomTOFDistance());
     m_subsystem.bottomConveyorPower(Constants.BOTTOM_CONVEYOR_SPEED);
-    if (m_subsystem.getTOFDistance() < Constants.CONVEYOR_TOF_DISTANCE)
+    if (m_subsystem.getBottomTOFDistance() < Constants.CONVEYOR_TOF_DISTANCE)
     {
       initTime = System.currentTimeMillis();
     }
     if (initTime != -1 && System.currentTimeMillis() < (initTime + Constants.CONVEYOR_TOF_TIME))
     {
-      m_subsystem.topConveyorPower(Constants.CONVEYOR_SPEED);
+      m_subsystem.topConveyorPower(Constants.TOP_CONVEYOR_SPEED);
     }
     else
     {

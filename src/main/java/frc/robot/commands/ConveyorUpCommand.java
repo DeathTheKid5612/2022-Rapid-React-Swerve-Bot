@@ -32,7 +32,7 @@ public class ConveyorUpCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.conveyorPower(Constants.CONVEYOR_SPEED);
+    m_subsystem.conveyorPower(Constants.TOP_CONVEYOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
